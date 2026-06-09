@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Create your free Blogr account." />
+    <title>Sign Up | Blogr</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;600&family=Ubuntu:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============================================================
+         CSS CUSTOM PROPERTIES
+         ============================================================ */
+      :root {
+        --clr-red-light: hsl(356, 100%, 66%);
+        --clr-red-dark: hsl(355, 100%, 74%);
+        --clr-red-hover: hsl(356, 100%, 58%);
+        --clr-hero-start: hsl(13, 100%, 72%);
+        --clr-hero-end: hsl(353, 100%, 62%);
+        --clr-heading: hsl(208, 49%, 24%);
+        --clr-body: hsl(207, 13%, 34%);
+        --clr-input-border: hsl(207, 13%, 80%);
+        --clr-input-focus: hsl(356, 100%, 66%);
+        --clr-error: hsl(356, 100%, 60%);
+        --clr-success: hsl(145, 63%, 49%);
+        --clr-bg: hsl(210, 20%, 98%);
+        --grad-hero: linear-gradient(135deg, var(--clr-hero-start), var(--clr-hero-end));
+        --font-body: "Overpass", sans-serif;
+        --font-ui: "Ubuntu", sans-serif;
+        --radius-pill: 9999px;
+        --radius-lg: 1.25rem;
+        --radius-md: 0.75rem;
+        --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.1);
+        --shadow-input: 0 0 0 3px rgba(255, 82, 93, 0.18);
+        --transition: 250ms ease;
+      }
+
+      /* ============================================================
+         RESET
+         ============================================================ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html { font-size: 16px; scroll-behavior: smooth; }
+
+      body {
+        font-family: var(--font-body);
+        font-weight: 300;
+        color: var(--clr-body);
+        background: var(--clr-bg);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      a { text-decoration: none; color: inherit; }
+      button { cursor: pointer; border: none; background: none; font-family: inherit; }
+      img, svg { display: block; max-width: 100%; }
+
+      /* ============================================================
+         PAGE LOADER
+         ============================================================ */
+      .page-loader {
+        position: fixed;
+        inset: 0;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+      }
+
+      .page-loader.is-hidden { opacity: 0; visibility: hidden; }
+
+      .loader-ring {
+        width: 3rem;
+        height: 3rem;
+        border: 3px solid hsl(240, 6%, 90%);
+        border-top-color: var(--clr-red-light);
+        border-radius: 50%;
+        animation: spin 0.75s linear infinite;
+      }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* ============================================================
+         NAVIGATION
+         ============================================================ */
+      .nav {
+        background: var(--grad-hero);
+        padding: 0 clamp(1.25rem, 5vw, 2rem);
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .nav::before {
+        content: "";
+        position: absolute;
+        top: -60%;
+        right: -10%;
+        width: 60%;
+        height: 200%;
+        background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 68%);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .nav__logo {
+        display: flex;
+        align-items: center;
+        transition: opacity 150ms ease;
+        position: relative;
+        z-index: 1;
+      }
+
+      .nav__logo:hover { opacity: 0.82; }
+
+      .nav__back {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-family: var(--font-ui);
+        font-weight: 500;
+        font-size: 0.875rem;
+        transition: color var(--transition), transform var(--transition);
+        position: relative;
+        z-index: 1;
+      }
+
+      .nav__back:hover { color: #fff; transform: translateX(-3px); }
+
+      /* ============================================================
+         MAIN — TWO COLUMN LAYOUT
+         ============================================================ */
+      .auth-page {
+        flex: 1;
+        display: flex;
+        align-items: stretch;
+        position: relative;
+      }
+
+      /* Left — Benefits Panel */
+      .auth-benefits {
+        flex: 1;
+        background: var(--grad-hero);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 3rem clamp(2rem, 5vw, 3.5rem);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .auth-benefits::before {
+        content: "";
+        position: absolute;
+        top: -30%;
+        right: -20%;
+        width: 70%;
+        height: 150%;
+        background: radial-gradient(ellipse, rgba(255,255,255,0.1) 0%, transparent 65%);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .auth-benefits__label {
+        font-family: var(--font-ui);
+        font-size: 0.8125rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(255,255,255,0.75);
+        margin-bottom: 1.25rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .auth-benefits__title {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: clamp(1.75rem, 3vw, 2.5rem);
+        color: #fff;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .auth-benefits__desc {
+        color: rgba(255,255,255,0.85);
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+        position: relative;
+        z-index: 1;
+        max-width: 28rem;
+      }
+
+      /* Benefits list */
+      .benefits-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        list-style: none;
+        position: relative;
+        z-index: 1;
+      }
+
+      .benefits-list__item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .benefits-list__item:nth-child(1) { animation-delay: 0ms; }
+      .benefits-list__item:nth-child(2) { animation-delay: 100ms; }
+      .benefits-list__item:nth-child(3) { animation-delay: 200ms; }
+      .benefits-list__item:nth-child(4) { animation-delay: 300ms; }
+
+      .benefit-icon {
+        width: 36px;
+        height: 36px;
+        background: rgba(255,255,255,0.18);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: #fff;
+      }
+
+      .benefit-text strong {
+        display: block;
+        font-family: var(--font-ui);
+        font-weight: 600;
+        font-size: 0.9375rem;
+        color: #fff;
+        margin-bottom: 0.2rem;
+      }
+
+      .benefit-text span {
+        font-size: 0.875rem;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.5;
+      }
+
+      /* Testimonial */
+      .benefits-testimonial {
+        margin-top: 2.5rem;
+        padding: 1.25rem 1.5rem;
+        background: rgba(255,255,255,0.12);
+        border-radius: var(--radius-md);
+        border-left: 3px solid rgba(255,255,255,0.5);
+        position: relative;
+        z-index: 1;
+        animation: fadeUp 0.6s ease 0.4s both;
+      }
+
+      .benefits-testimonial p {
+        font-size: 0.9rem;
+        color: rgba(255,255,255,0.92);
+        line-height: 1.6;
+        font-style: italic;
+        margin-bottom: 0.75rem;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .testimonial-avatar {
+        width: 32px;
+        height: 32px;
+        background: rgba(255,255,255,0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-ui);
+        font-weight: 700;
+        font-size: 0.8125rem;
+        color: #fff;
+      }
+
+      .testimonial-info strong {
+        display: block;
+        font-family: var(--font-ui);
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: #fff;
+      }
+
+      .testimonial-info span {
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.7);
+      }
+
+      /* Right — Form Panel */
+      .auth-form-panel {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem clamp(1.5rem, 4vw, 3rem);
+        background: #fff;
+        overflow-y: auto;
+      }
+
+      /* ============================================================
+         AUTH CARD
+         ============================================================ */
+      .auth-card {
+        width: 100%;
+        max-width: 460px;
+        animation: slideUp 0.6s ease both;
+      }
+
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(2rem); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(1rem); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .auth-card__header {
+        margin-bottom: 2rem;
+      }
+
+      .auth-card__eyebrow {
+        font-family: var(--font-ui);
+        font-size: 0.8125rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--clr-red-light);
+        margin-bottom: 0.5rem;
+      }
+
+      .auth-card__title {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 2rem;
+        color: var(--clr-heading);
+        line-height: 1.15;
+        margin-bottom: 0.6rem;
+      }
+
+      .auth-card__subtitle {
+        font-size: 0.9375rem;
+        color: var(--clr-body);
+        line-height: 1.6;
+      }
+
+      /* Progress steps */
+      .form-steps {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-bottom: 2rem;
+      }
+
+      .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+        flex: 1;
+        position: relative;
+      }
+
+      .step:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        top: 14px;
+        left: 55%;
+        width: 90%;
+        height: 2px;
+        background: hsl(207, 13%, 88%);
+        transition: background var(--transition);
+      }
+
+      .step.is-active:not(:last-child)::after,
+      .step.is-done:not(:last-child)::after {
+        background: var(--clr-red-light);
+      }
+
+      .step__circle {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid hsl(207, 13%, 85%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-ui);
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: hsl(207, 13%, 65%);
+        background: #fff;
+        transition: all var(--transition);
+        position: relative;
+        z-index: 1;
+      }
+
+      .step.is-active .step__circle {
+        border-color: var(--clr-red-light);
+        color: var(--clr-red-light);
+        box-shadow: 0 0 0 3px rgba(255, 82, 93, 0.15);
+      }
+
+      .step.is-done .step__circle {
+        background: var(--clr-red-light);
+        border-color: var(--clr-red-light);
+        color: #fff;
+      }
+
+      .step__label {
+        font-family: var(--font-ui);
+        font-size: 0.6875rem;
+        color: hsl(207, 13%, 65%);
+        white-space: nowrap;
+        font-weight: 500;
+        transition: color var(--transition);
+      }
+
+      .step.is-active .step__label,
+      .step.is-done .step__label {
+        color: var(--clr-red-light);
+      }
+
+      /* ============================================================
+         SOCIAL BUTTONS
+         ============================================================ */
+      .social-btns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border: 1.5px solid hsl(207, 13%, 85%);
+        border-radius: var(--radius-md);
+        font-family: var(--font-ui);
+        font-weight: 500;
+        font-size: 0.875rem;
+        color: var(--clr-heading);
+        background: #fff;
+        cursor: pointer;
+        transition: border-color var(--transition), background var(--transition),
+          box-shadow var(--transition), transform 150ms ease;
+      }
+
+      .social-btn:hover {
+        border-color: var(--clr-red-light);
+        background: rgba(255, 82, 93, 0.03);
+        box-shadow: 0 2px 12px rgba(255, 82, 93, 0.1);
+        transform: translateY(-1px);
+      }
+
+      /* ============================================================
+         DIVIDER
+         ============================================================ */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .divider__line { flex: 1; height: 1px; background: hsl(207, 13%, 90%); }
+
+      .divider__text {
+        font-family: var(--font-ui);
+        font-size: 0.8125rem;
+        color: hsl(207, 13%, 60%);
+        white-space: nowrap;
+      }
+
+      /* ============================================================
+         FORM
+         ============================================================ */
+      .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.125rem;
+      }
+
+      .form-row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.875rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+
+      .form-label {
+        font-family: var(--font-ui);
+        font-weight: 500;
+        font-size: 0.875rem;
+        color: var(--clr-heading);
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .input-icon {
+        position: absolute;
+        left: 1rem;
+        color: hsl(207, 13%, 65%);
+        pointer-events: none;
+        transition: color var(--transition);
+        flex-shrink: 0;
+      }
+
+      .input-wrapper:focus-within .input-icon {
+        color: var(--clr-red-light);
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 0.875rem 1rem 0.875rem 2.75rem;
+        border: 1.5px solid hsl(207, 13%, 82%);
+        border-radius: var(--radius-md);
+        font-family: var(--font-ui);
+        font-size: 0.9375rem;
+        color: var(--clr-heading);
+        background: #fff;
+        transition: border-color var(--transition), box-shadow var(--transition);
+        outline: none;
+      }
+
+      .form-input::placeholder {
+        color: hsl(207, 13%, 70%);
+        font-weight: 400;
+      }
+
+      .form-input:focus {
+        border-color: var(--clr-input-focus);
+        box-shadow: var(--shadow-input);
+      }
+
+      .form-input.is-error {
+        border-color: var(--clr-error);
+        box-shadow: 0 0 0 3px rgba(255, 82, 93, 0.15);
+      }
+
+      .form-input.is-success {
+        border-color: var(--clr-success);
+        box-shadow: 0 0 0 3px rgba(72, 199, 142, 0.15);
+      }
+
+      /* Input without icon (no padding left) */
+      .form-input.no-icon {
+        padding-left: 1rem;
+      }
+
+      /* Password toggle */
+      .input-toggle {
+        position: absolute;
+        right: 1rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: hsl(207, 13%, 65%);
+        display: flex;
+        align-items: center;
+        padding: 0.25rem;
+        border-radius: 4px;
+        transition: color var(--transition);
+      }
+
+      .input-toggle:hover { color: var(--clr-red-light); }
+
+      /* Error */
+      .form-error {
+        font-family: var(--font-ui);
+        font-size: 0.8125rem;
+        color: var(--clr-error);
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        opacity: 0;
+        transform: translateY(-4px);
+        transition: opacity var(--transition), transform var(--transition);
+        min-height: 1.1rem;
+      }
+
+      .form-error.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Hint text */
+      .form-hint {
+        font-family: var(--font-ui);
+        font-size: 0.8rem;
+        color: hsl(207, 13%, 58%);
+        line-height: 1.4;
+      }
+
+      /* ============================================================
+         PASSWORD STRENGTH
+         ============================================================ */
+      .strength-wrap {
+        margin-top: 0.4rem;
+      }
+
+      .strength-bar {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 0.35rem;
+      }
+
+      .strength-bar__seg {
+        height: 4px;
+        flex: 1;
+        border-radius: 2px;
+        background: hsl(207, 13%, 88%);
+        transition: background 0.3s ease;
+      }
+
+      .strength-label {
+        font-family: var(--font-ui);
+        font-size: 0.75rem;
+        color: hsl(207, 13%, 60%);
+        transition: color 0.3s ease;
+      }
+
+      /* ============================================================
+         TERMS CHECKBOX
+         ============================================================ */
+      .terms-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.7rem;
+        cursor: pointer;
+        font-family: var(--font-ui);
+        font-size: 0.875rem;
+        color: var(--clr-body);
+        line-height: 1.5;
+        user-select: none;
+      }
+
+      .checkbox-input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .checkbox-custom {
+        width: 18px;
+        height: 18px;
+        border: 1.5px solid hsl(207, 13%, 80%);
+        border-radius: 4px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition);
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      .checkbox-input:checked + .checkbox-custom {
+        background: var(--clr-red-light);
+        border-color: var(--clr-red-light);
+      }
+
+      .checkbox-input:checked + .checkbox-custom::after {
+        content: "";
+        display: block;
+        width: 5px;
+        height: 9px;
+        border: 2px solid #fff;
+        border-top: none;
+        border-left: none;
+        transform: rotate(45deg) translate(-1px, -1px);
+      }
+
+      .checkbox-input:focus-visible + .checkbox-custom {
+        outline: 3px solid rgba(255, 82, 93, 0.3);
+        outline-offset: 2px;
+      }
+
+      .terms-label a {
+        color: var(--clr-red-light);
+        font-weight: 600;
+        transition: color var(--transition);
+      }
+
+      .terms-label a:hover {
+        color: var(--clr-red-hover);
+        text-decoration: underline;
+      }
+
+      /* ============================================================
+         SUBMIT BUTTON
+         ============================================================ */
+      .btn-submit {
+        width: 100%;
+        padding: 0.95rem 2rem;
+        background: var(--grad-hero);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius-pill);
+        font-family: var(--font-ui);
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: opacity var(--transition), transform 150ms ease,
+          box-shadow var(--transition);
+        position: relative;
+        overflow: hidden;
+        margin-top: 0.5rem;
+      }
+
+      .btn-submit::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(255,255,255,0);
+        transition: background var(--transition);
+      }
+
+      .btn-submit:hover::before { background: rgba(255,255,255,0.12); }
+
+      .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(255, 82, 93, 0.35);
+      }
+
+      .btn-submit:active { transform: translateY(0); box-shadow: none; }
+
+      .btn-submit:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn-submit__spinner {
+        display: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(255,255,255,0.4);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        margin-inline: auto;
+      }
+
+      .btn-submit.is-loading .btn-submit__text { display: none; }
+      .btn-submit.is-loading .btn-submit__spinner { display: block; }
+
+      /* ============================================================
+         CARD FOOTER
+         ============================================================ */
+      .auth-card__footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid hsl(207, 13%, 92%);
+        font-family: var(--font-ui);
+        font-size: 0.9rem;
+        color: var(--clr-body);
+      }
+
+      .auth-card__footer a {
+        color: var(--clr-red-light);
+        font-weight: 600;
+        transition: color var(--transition);
+      }
+
+      .auth-card__footer a:hover {
+        color: var(--clr-red-hover);
+        text-decoration: underline;
+      }
+
+      /* ============================================================
+         SUCCESS STATE
+         ============================================================ */
+      .success-screen {
+        display: none;
+        text-align: center;
+        padding: 2rem 0;
+        animation: fadeUp 0.5s ease both;
+      }
+
+      .success-screen.is-visible { display: block; }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, rgba(72,199,142,0.12), rgba(72,199,142,0.06));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: var(--clr-success);
+        animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      }
+
+      @keyframes popIn {
+        from { transform: scale(0); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+
+      .success-screen h2 {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 1.75rem;
+        color: var(--clr-heading);
+        margin-bottom: 0.75rem;
+      }
+
+      .success-screen p {
+        color: var(--clr-body);
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        max-width: 26rem;
+        margin-inline: auto;
+        margin-bottom: 2rem;
+      }
+
+      .success-screen .btn-home {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 2rem;
+        background: var(--grad-hero);
+        color: #fff;
+        border-radius: var(--radius-pill);
+        font-family: var(--font-ui);
+        font-weight: 700;
+        font-size: 0.9375rem;
+        transition: transform 150ms ease, box-shadow var(--transition);
+      }
+
+      .success-screen .btn-home:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(255, 82, 93, 0.3);
+      }
+
+      /* ============================================================
+         SITE FOOTER
+         ============================================================ */
+      .site-footer {
+        background: hsl(240, 10%, 16%);
+        padding: 1.5rem clamp(1.25rem, 5vw, 2rem);
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .site-footer p {
+        font-family: var(--font-ui);
+        font-size: 0.8125rem;
+        color: hsl(240, 2%, 60%);
+      }
+
+      .site-footer a {
+        color: hsl(356, 100%, 74%);
+        transition: color var(--transition);
+      }
+
+      .site-footer a:hover { color: #fff; }
+
+      /* ============================================================
+         RESPONSIVE
+         ============================================================ */
+      @media (max-width: 900px) {
+        .auth-benefits { display: none; }
+
+        .auth-form-panel {
+          flex: none;
+          width: 100%;
+          padding: 2.5rem clamp(1.25rem, 5vw, 2rem);
+        }
+
+        .auth-page { flex-direction: column; }
+      }
+
+      @media (max-width: 520px) {
+        .auth-card__title { font-size: 1.6rem; }
+
+        .form-row-2 { grid-template-columns: 1fr; }
+
+        .social-btns { grid-template-columns: 1fr; }
+
+        .form-steps { gap: 0; }
+
+        .step__label { font-size: 0.625rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+      <div class="loader-ring"></div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="nav" aria-label="Site navigation">
+      <a href="index.html" class="nav__logo" aria-label="Blogr home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="101" height="32" aria-hidden="true">
+          <g fill="#FFF" fill-rule="evenodd">
+            <path d="M6.856 32c-3.789 0-6.27-2.086-6.27-6.264V6.242C.586 2.086 3.067 0 6.856 0c3.789 0 6.27 2.086 6.27 6.242V10H8.49V5.825C8.49 4.453 7.88 3.81 6.856 3.81c-1.025 0-1.635.643-1.635 2.015v20.35c0 1.372.61 2.015 1.635 2.015 1.025 0 1.635-.643 1.635-2.015V19.53h4.635v4.206C13.126 27.914 10.645 32 6.856 32zM15.96.321h4.635v31.358H15.96zM31.373 32c-3.79 0-6.27-2.086-6.27-6.264V6.242C25.103 2.086 27.583 0 31.373 0c3.789 0 6.27 2.086 6.27 6.242v19.494C37.643 29.914 35.162 32 31.373 32zm-1.636-26.175v20.35c0 1.372.611 2.015 1.636 2.015 1.024 0 1.635-.643 1.635-2.015V5.825c0-1.372-.611-2.015-1.635-2.015-1.025 0-1.636.643-1.636 2.015zM51.522 32c-3.79 0-6.27-2.086-6.27-6.264V.32h4.634v25.855c0 1.372.61 2.015 1.636 2.015 1.024 0 1.635-.643 1.635-2.015V.321h4.635v25.415C57.792 29.914 55.311 32 51.522 32zM68.73 32c-3.79 0-6.27-2.086-6.27-6.264V6.242C62.46 2.086 64.94 0 68.73 0c3.788 0 6.27 2.086 6.27 6.242V13H70.364V5.825c0-1.372-.61-2.015-1.635-2.015-1.025 0-1.636.643-1.636 2.015v20.35c0 1.372.611 2.015 1.636 2.015 1.025 0 1.635-.643 1.635-2.015V19h-1.871v-3.81H75v10.546C75 29.914 72.518 32 68.73 32zM89.382 32L86.735 19.4H84.96V32H80.324V.321h6.27c3.79 0 6.27 2.086 6.27 6.242v6.574c0 2.786-1.025 4.8-2.904 5.871L92.898 32h-3.516zm-4.422-28.19V15.59h1.636c1.025 0 1.635-.643 1.635-2.015V5.825c0-1.372-.61-2.015-1.635-2.015H84.96zM100.676 32H96.04V.321h4.635z"/>
+          </g>
+        </svg>
+      </a>
+
+      <a href="index.html" class="nav__back" aria-label="Back to home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Home
+      </a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="auth-page">
+
+      <!-- LEFT: Benefits Panel -->
+      <div class="auth-benefits" aria-hidden="true">
+        <p class="auth-benefits__label">Why Blogr?</p>
+        <h2 class="auth-benefits__title">Start your writing journey today</h2>
+        <p class="auth-benefits__desc">
+          Join thousands of writers who use Blogr to share their ideas,
+          grow their audience, and build their brand — completely free.
+        </p>
+
+        <ul class="benefits-list">
+          <li class="benefits-list__item">
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+            </div>
+            <div class="benefit-text">
+              <strong>Powerful Editor</strong>
+              <span>Write with an intuitive editor that supports Markdown, images, and embeds.</span>
+            </div>
+          </li>
+
+          <li class="benefits-list__item">
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="benefit-text">
+              <strong>Grow Your Audience</strong>
+              <span>Built-in SEO tools, RSS feeds, and social sharing to reach more readers.</span>
+            </div>
+          </li>
+
+          <li class="benefits-list__item">
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+                <line x1="9" y1="21" x2="9" y2="9"></line>
+              </svg>
+            </div>
+            <div class="benefit-text">
+              <strong>Beautiful Themes</strong>
+              <span>Choose from dozens of clean, mobile-ready themes or customize your own.</span>
+            </div>
+          </li>
+
+          <li class="benefits-list__item">
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <div class="benefit-text">
+              <strong>Always Free</strong>
+              <span>Core features are free forever. No credit card required to get started.</span>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Testimonial -->
+        <div class="benefits-testimonial">
+          <p>"Blogr transformed how I share my work. The editor is a joy to use and my traffic tripled in two months."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">AJ</div>
+            <div class="testimonial-info">
+              <strong>Amaka Johnson</strong>
+              <span>Tech blogger · 12,000 readers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form Panel -->
+      <div class="auth-form-panel">
+        <div class="auth-card">
+
+          <!-- Form Header -->
+          <div class="auth-card__header">
+            <p class="auth-card__eyebrow">Free Forever</p>
+            <h1 class="auth-card__title">Create your account</h1>
+            <p class="auth-card__subtitle">
+              Get started in under 2 minutes. No credit card needed.
+            </p>
+          </div>
+
+          <!-- Progress Steps -->
+          <div class="form-steps" role="list" aria-label="Registration steps">
+            <div class="step is-active" id="step1" role="listitem">
+              <div class="step__circle">1</div>
+              <span class="step__label">Your Info</span>
+            </div>
+            <div class="step" id="step2" role="listitem">
+              <div class="step__circle">2</div>
+              <span class="step__label">Security</span>
+            </div>
+            <div class="step" id="step3" role="listitem">
+              <div class="step__circle">3</div>
+              <span class="step__label">Done</span>
+            </div>
+          </div>
+
+          <!-- Success Screen (hidden by default) -->
+          <div class="success-screen" id="successScreen">
+            <div class="success-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h2>Account Created!</h2>
+            <p>
+              Welcome to Blogr! Your account has been created successfully.
+              You're ready to start writing and sharing your ideas with the world.
+            </p>
+            <a href="index.html" class="btn-home">
+              Go to Homepage
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Social Signup -->
+          <div id="formContent">
+            <div class="social-btns">
+              <button class="social-btn" type="button" aria-label="Sign up with Google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 
