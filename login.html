@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Login to your Blogr account." />
+    <title>Login | Blogr</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;600&family=Ubuntu:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============================================================
+         CSS CUSTOM PROPERTIES
+         ============================================================ */
+      :root {
+        --clr-red-light: hsl(356, 100%, 66%);
+        --clr-red-dark: hsl(355, 100%, 74%);
+        --clr-red-hover: hsl(356, 100%, 58%);
+        --clr-hero-start: hsl(13, 100%, 72%);
+        --clr-hero-end: hsl(353, 100%, 62%);
+        --clr-heading: hsl(208, 49%, 24%);
+        --clr-body: hsl(207, 13%, 34%);
+        --clr-input-border: hsl(207, 13%, 80%);
+        --clr-input-focus: hsl(356, 100%, 66%);
+        --clr-error: hsl(356, 100%, 60%);
+        --clr-success: hsl(145, 63%, 49%);
+        --clr-bg: hsl(210, 20%, 98%);
+        --grad-hero: linear-gradient(135deg, var(--clr-hero-start), var(--clr-hero-end));
+        --font-body: "Overpass", sans-serif;
+        --font-ui: "Ubuntu", sans-serif;
+        --radius-pill: 9999px;
+        --radius-lg: 1.25rem;
+        --radius-md: 0.75rem;
+        --radius-sm: 0.5rem;
+        --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.1);
+        --shadow-input: 0 0 0 3px rgba(255, 82, 93, 0.18);
+        --transition: 250ms ease;
+      }
+
+      /* ============================================================
+         RESET
+         ============================================================ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        font-size: 16px;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-body);
+        font-weight: 300;
+        color: var(--clr-body);
+        background: var(--clr-bg);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      button {
+        cursor: pointer;
+        border: none;
+        background: none;
+        font-family: inherit;
+      }
+
+      img,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+
+      /* ============================================================
+         PAGE LOADER
+         ============================================================ */
+      .page-loader {
+        position: fixed;
+        inset: 0;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+      }
+
+      .page-loader.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .loader-ring {
+        width: 3rem;
+        height: 3rem;
+        border: 3px solid hsl(240, 6%, 90%);
+        border-top-color: var(--clr-red-light);
+        border-radius: 50%;
+        animation: spin 0.75s linear infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* ============================================================
+         NAVIGATION
+         ============================================================ 
