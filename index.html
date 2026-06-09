@@ -437,4 +437,830 @@
       }
 
       /* SECTIONS */
-      .section { 
+      .section { padding-block: 6rem; overflow: hidden; }
+
+      .section__title {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+        color: var(--clr-heading);
+        line-height: 1.2;
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+
+      .section__title--light { color: #fff; }
+
+      /* FUTURE SECTION */
+      .section--future { background: #fff; }
+
+      .future__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 4rem;
+      }
+
+      .future__text { display: flex; flex-direction: column; gap: 3rem; }
+      .future__illustration { display: flex; justify-content: flex-end; }
+
+      .illustration--editor {
+        width: 100%;
+        max-width: 520px;
+        margin-left: auto;
+        transform: translateX(8%);
+      }
+
+      .illustration__svg {
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 24px 64px rgba(255, 82, 93, 0.14));
+        animation: float 5.5s ease-in-out infinite;
+      }
+
+      /* INFRASTRUCTURE */
+      .section--infrastructure {
+        background: var(--grad-infra);
+        border-radius: 0 100px 0 100px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding-block: 6rem;
+        overflow: visible;
+      }
+
+      .infrastructure__illustration {
+        position: absolute;
+        left: -6%;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 52%;
+        max-width: 580px;
+        pointer-events: none;
+      }
+
+      .infrastructure__svg {
+        width: 100%;
+        height: auto;
+        animation: float 6.5s ease-in-out infinite 0.6s;
+      }
+
+      .infrastructure__content {
+        margin-left: auto;
+        max-width: 50%;
+        padding-left: 2rem;
+      }
+
+      .infrastructure__text {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 1.0625rem;
+        line-height: 1.8;
+        max-width: 32rem;
+      }
+
+      /* FEATURES */
+      .section--features { background: #fff; }
+
+      .features__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 4rem;
+      }
+
+      .features__illustration { display: flex; justify-content: flex-start; }
+      .features__illustration .illustration__svg {
+        transform: translateX(-8%);
+        max-width: 480px;
+      }
+
+      .features__text { display: flex; flex-direction: column; gap: 3rem; }
+
+      /* FEATURE CARDS */
+      .feature-card__title {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 1.5rem;
+        color: var(--clr-heading);
+        line-height: 1.3;
+        margin-bottom: 1rem;
+        position: relative;
+        padding-left: 1.25rem;
+      }
+
+      .feature-card__title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.3em;
+        width: 3px;
+        height: 1.25em;
+        background: var(--clr-red-light);
+        border-radius: 2px;
+      }
+
+      .feature-card__text { font-size: 1rem; line-height: 1.85; color: var(--clr-body); }
+
+      /* FOOTER */
+      .footer {
+        background: var(--clr-footer-bg);
+        border-radius: 0 100px 0 0;
+        padding-block: 4rem;
+      }
+
+      .footer__grid {
+        display: grid;
+        grid-template-columns: 1fr repeat(3, auto);
+        gap: 3rem;
+        align-items: start;
+      }
+
+      .footer__brand { display: flex; align-items: flex-start; }
+      .footer__logo { transition: opacity 150ms ease; }
+      .footer__logo:hover { opacity: 0.78; }
+
+      .footer__heading {
+        font-family: var(--font-ui);
+        font-weight: 700;
+        font-size: 0.875rem;
+        color: #fff;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.025em;
+      }
+
+      .footer__list { display: flex; flex-direction: column; gap: 0.65rem; }
+
+      .footer__link {
+        font-family: var(--font-ui);
+        font-size: 0.875rem;
+        color: hsl(240, 2%, 79%);
+        transition: color 150ms ease;
+      }
+      .footer__link:hover { color: #fff; }
+
+      /* SCROLL TOP */
+      .scroll-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 2.75rem;
+        height: 2.75rem;
+        background: var(--clr-red-light);
+        color: #fff;
+        border-radius: var(--radius-pill);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-md);
+        opacity: 0;
+        transform: translateY(1.25rem);
+        transition: opacity var(--transition), transform var(--transition), background 150ms ease;
+        pointer-events: none;
+        z-index: 500;
+        cursor: pointer;
+        border: none;
+      }
+
+      .scroll-top.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .scroll-top:hover {
+        background: var(--clr-red-hover);
+        transform: translateY(-2px);
+      }
+
+      /* PAGE LOADER */
+      .page-loader {
+        position: fixed;
+        inset: 0;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+      }
+
+      .page-loader.is-hidden { opacity: 0; visibility: hidden; }
+
+      .loader-ring {
+        width: 3rem;
+        height: 3rem;
+        border: 3px solid hsl(240, 6%, 90%);
+        border-top-color: var(--clr-red-light);
+        border-radius: 50%;
+        animation: spin 0.75s linear infinite;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(1.75rem); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-14px); }
+      }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(2rem);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+      .reveal--left {
+        opacity: 0;
+        transform: translateX(-2rem);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .reveal--left.is-visible { opacity: 1; transform: translateX(0); }
+
+      .reveal--right {
+        opacity: 0;
+        transform: translateX(2rem);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .reveal--right.is-visible { opacity: 1; transform: translateX(0); }
+
+      .stagger > * {
+        opacity: 0;
+        transform: translateY(1rem);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .stagger.is-visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
+      .stagger.is-visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 120ms; }
+      .stagger.is-visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 240ms; }
+
+      /* RESPONSIVE TABLET */
+      @media (max-width: 960px) {
+        .nav__links, .nav__auth { display: none; }
+        .nav__hamburger { display: flex; }
+
+        .header { border-radius: 0 0 0 80px; padding-bottom: 4rem; }
+        .hero { padding: 4rem clamp(1.25rem, 5vw, 2rem); }
+
+        .future__grid { grid-template-columns: 1fr; text-align: center; }
+        .future__illustration { order: -1; justify-content: center; }
+        .illustration--editor { transform: none; max-width: 340px; margin-inline: auto; }
+        .future__text { align-items: center; }
+
+        .feature-card__title { padding-left: 0; }
+        .feature-card__title::before { display: none; }
+
+        .section--infrastructure {
+          flex-direction: column;
+          border-radius: 0 80px 0 80px;
+          padding-block: 5rem;
+          text-align: center;
+        }
+
+        .infrastructure__illustration {
+          position: relative;
+          left: auto;
+          top: auto;
+          transform: none;
+          width: 80%;
+          max-width: 380px;
+          margin-inline: auto;
+          margin-bottom: 2rem;
+        }
+
+        .infrastructure__content {
+          margin-left: 0;
+          max-width: 100%;
+          padding-left: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .features__grid { grid-template-columns: 1fr; text-align: center; }
+        .features__illustration .illustration__svg { transform: none; max-width: 340px; margin-inline: auto; }
+        .features__text { align-items: center; }
+
+        .footer__grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+        .footer__brand { justify-content: center; }
+        .footer__list { align-items: center; }
+        .footer { border-radius: 0 80px 0 0; }
+      }
+
+      /* RESPONSIVE MOBILE */
+      @media (max-width: 600px) {
+        .header { border-radius: 0 0 0 60px; }
+        .section--infrastructure { border-radius: 0 60px 0 60px; }
+        .footer { border-radius: 0 60px 0 0; }
+        .hero { padding: 3.5rem clamp(1.25rem, 5vw, 2rem); }
+        .hero__title { font-size: clamp(1.75rem, 9vw, 2.5rem); }
+        .hero__subtitle { font-size: 1rem; margin-bottom: 2rem; }
+        .hero__actions { flex-direction: column; align-items: center; }
+        .hero__actions .btn { width: 100%; max-width: 16rem; }
+        .section { padding-block: 4rem; }
+        .section__title { font-size: 1.5rem; }
+        .feature-card__title { font-size: 1.25rem; }
+        .infrastructure__illustration { width: 95%; }
+        .scroll-top { bottom: 1.25rem; right: 1.25rem; width: 2.5rem; height: 2.5rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+        html { scroll-behavior: auto; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader" role="status" aria-label="Loading">
+      <div class="loader-ring"></div>
+    </div>
+
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="header" role="banner">
+      <nav class="nav container" aria-label="Main navigation">
+
+        <!-- Logo -->
+        <a href="index.html" class="nav__logo" aria-label="Blogr home">
+          <svg xmlns="http://www.w3.org/2000/svg" width="101" height="32" aria-hidden="true">
+            <g fill="#FFF" fill-rule="evenodd">
+              <path d="M6.856 32c-3.789 0-6.27-2.086-6.27-6.264V6.242C.586 2.086 3.067 0 6.856 0c3.789 0 6.27 2.086 6.27 6.242V10H8.49V5.825C8.49 4.453 7.88 3.81 6.856 3.81c-1.025 0-1.635.643-1.635 2.015v20.35c0 1.372.61 2.015 1.635 2.015 1.025 0 1.635-.643 1.635-2.015V19.53h4.635v4.206C13.126 27.914 10.645 32 6.856 32zM15.96.321h4.635v31.358H15.96zM31.373 32c-3.79 0-6.27-2.086-6.27-6.264V6.242C25.103 2.086 27.583 0 31.373 0c3.789 0 6.27 2.086 6.27 6.242v19.494C37.643 29.914 35.162 32 31.373 32zm-1.636-26.175v20.35c0 1.372.611 2.015 1.636 2.015 1.024 0 1.635-.643 1.635-2.015V5.825c0-1.372-.611-2.015-1.635-2.015-1.025 0-1.636.643-1.636 2.015zM51.522 32c-3.79 0-6.27-2.086-6.27-6.264V.32h4.634v25.855c0 1.372.61 2.015 1.636 2.015 1.024 0 1.635-.643 1.635-2.015V.321h4.635v25.415C57.792 29.914 55.311 32 51.522 32zM68.73 32c-3.79 0-6.27-2.086-6.27-6.264V6.242C62.46 2.086 64.94 0 68.73 0c3.788 0 6.27 2.086 6.27 6.242V13H70.364V5.825c0-1.372-.61-2.015-1.635-2.015-1.025 0-1.636.643-1.636 2.015v20.35c0 1.372.611 2.015 1.636 2.015 1.025 0 1.635-.643 1.635-2.015V19h-1.871v-3.81H75v10.546C75 29.914 72.518 32 68.73 32zM89.382 32L86.735 19.4H84.96V32H80.324V.321h6.27c3.79 0 6.27 2.086 6.27 6.242v6.574c0 2.786-1.025 4.8-2.904 5.871L92.898 32h-3.516zm-4.422-28.19V15.59h1.636c1.025 0 1.635-.643 1.635-2.015V5.825c0-1.372-.61-2.015-1.635-2.015H84.96zM100.676 32H96.04V.321h4.635z"/>
+            </g>
+          </svg>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <ul class="nav__links" role="list">
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__dropdown-btn" aria-expanded="false" aria-haspopup="true" aria-controls="dd-product">
+              Product
+              <svg class="nav__chevron" xmlns="http://www.w3.org/2000/svg" width="10" height="7" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="#FFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul class="nav__dropdown" id="dd-product" role="menu">
+              <li><a href="#" role="menuitem">Overview</a></li>
+              <li><a href="#" role="menuitem">Pricing</a></li>
+              <li><a href="#" role="menuitem">Marketplace</a></li>
+              <li><a href="#" role="menuitem">Features</a></li>
+              <li><a href="#" role="menuitem">Integrations</a></li>
+            </ul>
+          </li>
+
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__dropdown-btn" aria-expanded="false" aria-haspopup="true" aria-controls="dd-company">
+              Company
+              <svg class="nav__chevron" xmlns="http://www.w3.org/2000/svg" width="10" height="7" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="#FFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul class="nav__dropdown" id="dd-company" role="menu">
+              <li><a href="#" role="menuitem">About</a></li>
+              <li><a href="#" role="menuitem">Team</a></li>
+              <li><a href="#" role="menuitem">Blog</a></li>
+              <li><a href="#" role="menuitem">Careers</a></li>
+            </ul>
+          </li>
+
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__dropdown-btn" aria-expanded="false" aria-haspopup="true" aria-controls="dd-connect">
+              Connect
+              <svg class="nav__chevron" xmlns="http://www.w3.org/2000/svg" width="10" height="7" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="#FFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul class="nav__dropdown" id="dd-connect" role="menu">
+              <li><a href="#" role="menuitem">Contact</a></li>
+              <li><a href="#" role="menuitem">Newsletter</a></li>
+              <li><a href="#" role="menuitem">LinkedIn</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- ✅ DESKTOP AUTH — LINKS TO login.html AND signup.html -->
+        <div class="nav__auth">
+          <a href="login.html" class="btn btn--ghost">Login</a>
+          <a href="signup.html" class="btn btn--primary">Sign Up</a>
+        </div>
+
+        <!-- Hamburger -->
+        <button class="nav__hamburger" aria-label="Toggle mobile menu"
+          aria-expanded="false" aria-controls="mobile-menu">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </button>
+      </nav>
+
+      <!-- MOBILE MENU -->
+      <div class="mobile-menu" id="mobile-menu" role="dialog"
+        aria-label="Mobile navigation" aria-hidden="true">
+        <ul class="mobile-menu__links" role="list">
+
+          <li class="mobile-menu__item">
+            <button class="mobile-menu__dropdown-btn" aria-expanded="false" aria-controls="mob-dd-product">
+              Product
+              <svg class="mobile-chevron" xmlns="http://www.w3.org/2000/svg" width="10" height="7" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="#FF525D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul class="mobile-menu__dropdown" id="mob-dd-product" aria-hidden="true">
+              <li><a href="#">Overview</a></li>
+              <li><a href="#">Pricing</a></li>
+              <li><a href="#">Marketplace</a></li>
+              <li><a href="#">Features</a></li>
+              <li><a href="#">Integrations</a></li>
+            </ul>
+          </li>
+
+          <li class="mobile-menu__item">
+            <button class="mobile-menu__dropdown-btn" aria-expanded="false" aria-controls="mob-dd-company">
+              Company
+              <svg class="mobile-chevron" xmlns="http://www.w3.org/2000/svg" width="10" height="7" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="#FF525D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul class="mobile-menu__dropdown" id="mob-dd-company" aria-hidden="true">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Team</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Careers</a></li>
+            </ul>
+          </li>
+
+          <li class="mobile-menu__item">
+            <button class="mobile-menu__dropdown-btn" aria-expanded="false" aria-controls="mob-dd-connect">
+              Connect
+              <svg class="mobile-chevron" xmlns="http://www.w3.org/2000/svg" width="10" height="7" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="#FF525D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul class="mobile-menu__dropdown" id="mob-dd-connect" aria-hidden="true">
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Newsletter</a></li>
+              <li><a href="#">LinkedIn</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <hr class="mobile-menu__divider" />
+
+        <!-- ✅ MOBILE AUTH — LINKS TO login.html AND signup.html -->
+        <div class="mobile-menu__auth">
+          <a href="login.html" class="btn btn--ghost-dark">Login</a>
+          <a href="signup.html" class="btn btn--primary">Sign Up</a>
+        </div>
+      </div>
+
+      <!-- HERO -->
+      <div class="hero" id="main-content">
+        <div class="hero__content">
+          <h1 class="hero__title">A modern publishing platform</h1>
+          <p class="hero__subtitle">
+            Grow your audience and build your online brand whatever your topic,
+            writing style, or target audience.
+          </p>
+          <!-- ✅ HERO BUTTONS — LINKED TO signup.html AND login.html -->
+          <div class="hero__actions">
+            <a href="signup.html" class="btn btn--primary btn--lg">Start for Free</a>
+            <a href="login.html" class="btn btn--outline btn--lg">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== MAIN ==================== -->
+    <main>
+      <!-- SECTION 1: DESIGNED FOR THE FUTURE -->
+      <section class="section section--future" aria-labelledby="future-heading">
+        <div class="container">
+          <h2 class="section__title reveal" id="future-heading">
+            Designed for the future
+          </h2>
+          <div class="future__grid">
+            <div class="future__text stagger">
+              <article class="feature-card">
+                <h3 class="feature-card__title">Introducing an extensible editor</h3>
+                <p class="feature-card__text">
+                  Blogr features an exceedingly intuitive interface which lets you focus on one
+                  thing: creating content. The editor supports management of multiple blogs and
+                  allows easy manipulation of embeds such as images, videos, and Markdown.
+                  Extensibility with plugins and themes provide easy ways to add functionality
+                  or change the looks of a blog.
+                </p>
+              </article>
+              <article class="feature-card">
+                <h3 class="feature-card__title">Robust content management</h3>
+                <p class="feature-card__text">
+                  Flexible content management enables users to easily move through posts.
+                  Increase the usability of your blog by adding customized categories, sections,
+                  format, or flow. With this functionality, you're in full control.
+                </p>
+              </article>
+            </div>
+
+            <div class="future__illustration reveal--right" aria-hidden="true">
+              <div class="illustration--editor">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 478" class="illustration__svg" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#ff525d;stop-opacity:1"/>
+                      <stop offset="100%" style="stop-color:#ff7a85;stop-opacity:0"/>
+                    </linearGradient>
+                  </defs>
+                  <g fill="none" fill-rule="evenodd">
+                    <circle cx="240" cy="240" r="220" fill="url(#g1)" opacity="0.08"/>
+                    <rect x="60" y="80" width="160" height="290" rx="18" fill="#1E3A5F"/>
+                    <rect x="70" y="100" width="140" height="250" rx="6" fill="#F8F8F8"/>
+                    <rect x="110" y="88" width="60" height="8" rx="4" fill="#152A40"/>
+                    <rect x="82" y="116" width="80" height="8" rx="4" fill="#FF525D" opacity="0.8"/>
+                    <rect x="82" y="132" width="116" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="82" y="143" width="100" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="82" y="154" width="110" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="82" y="172" width="116" height="60" rx="6" fill="#E8EDF2"/>
+                    <rect x="82" y="240" width="60" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="82" y="253" width="100" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="82" y="264" width="90" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="82" y="282" width="50" height="14" rx="7" fill="#FF525D" opacity="0.7"/>
+                    <rect x="250" y="108" width="160" height="290" rx="18" fill="#1E3A5F"/>
+                    <rect x="260" y="128" width="140" height="250" rx="6" fill="#F8F8F8"/>
+                    <rect x="300" y="116" width="60" height="8" rx="4" fill="#152A40"/>
+                    <rect x="272" y="144" width="80" height="8" rx="4" fill="#FF525D" opacity="0.8"/>
+                    <rect x="272" y="160" width="116" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="272" y="171" width="100" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="272" y="182" width="110" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="272" y="200" width="116" height="60" rx="6" fill="#E8EDF2"/>
+                    <rect x="272" y="270" width="60" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="272" y="283" width="100" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="272" y="294" width="90" height="5" rx="2.5" fill="#C8D0D8"/>
+                    <rect x="272" y="312" width="50" height="14" rx="7" fill="#FF525D" opacity="0.7"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: INFRASTRUCTURE -->
+      <section class="section section--infrastructure" aria-labelledby="infra-heading">
+        <div class="infrastructure__illustration reveal--left" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 730 582" class="infrastructure__svg" aria-hidden="true">
+            <defs>
+              <radialGradient id="rg1" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" style="stop-color:#ff525d;stop-opacity:1"/>
+                <stop offset="100%" style="stop-color:#ff525d;stop-opacity:0"/>
+              </radialGradient>
+            </defs>
+            <g fill="none" fill-rule="evenodd">
+              <circle cx="365" cy="291" r="265" fill="url(#rg1)" opacity="0.15"/>
+              <circle cx="365" cy="291" r="140" fill="#1D3557" opacity="0.5"/>
+              <rect x="270" y="160" width="190" height="260" rx="10" fill="#1A2F4A"/>
+              <rect x="280" y="175" width="170" height="30" rx="4" fill="#243B55"/>
+              <rect x="285" y="181" width="12" height="18" rx="2" fill="#FF525D" opacity="0.8"/>
+              <rect x="303" y="184" width="80" height="5" rx="2.5" fill="#3D5A7A"/>
+              <circle cx="430" cy="190" r="6" fill="#4CAF50" opacity="0.8"/>
+              <rect x="280" y="213" width="170" height="30" rx="4" fill="#243B55"/>
+              <rect x="285" y="219" width="12" height="18" rx="2" fill="#FF525D" opacity="0.6"/>
+              <rect x="303" y="222" width="80" height="5" rx="2.5" fill="#3D5A7A"/>
+              <circle cx="430" cy="228" r="6" fill="#4CAF50" opacity="0.8"/>
+              <rect x="280" y="251" width="170" height="30" rx="4" fill="#243B55"/>
+              <rect x="285" y="257" width="12" height="18" rx="2" fill="#FF525D" opacity="0.9"/>
+              <rect x="303" y="260" width="80" height="5" rx="2.5" fill="#3D5A7A"/>
+              <circle cx="430" cy="266" r="6" fill="#FF9800" opacity="0.8"/>
+              <rect x="280" y="289" width="170" height="30" rx="4" fill="#243B55"/>
+              <rect x="285" y="295" width="12" height="18" rx="2" fill="#FF525D" opacity="0.7"/>
+              <rect x="303" y="298" width="80" height="5" rx="2.5" fill="#3D5A7A"/>
+              <circle cx="430" cy="304" r="6" fill="#4CAF50" opacity="0.8"/>
+              <line x1="100" y1="291" x2="270" y2="291" stroke="#FF525D" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.4"/>
+              <line x1="460" y1="291" x2="630" y2="291" stroke="#FF525D" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.4"/>
+              <circle cx="90" cy="291" r="14" fill="#1A2F4A" stroke="#FF525D" stroke-width="2"/>
+              <circle cx="90" cy="291" r="6" fill="#FF525D" opacity="0.7"/>
+              <circle cx="640" cy="291" r="14" fill="#1A2F4A" stroke="#FF525D" stroke-width="2"/>
+              <circle cx="640" cy="291" r="6" fill="#FF525D" opacity="0.7"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="infrastructure__content container reveal--right">
+          <h2 class="section__title section__title--light" id="infra-heading">
+            State of the Art Infrastructure
+          </h2>
+          <p class="infrastructure__text">
+            With reliability and speed in mind, worldwide data centers provide the backbone
+            for ultra-fast connectivity. This ensures your site will load instantly, no matter
+            where your readers are, keeping your site competitive.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION 3: FEATURES -->
+      <section class="section section--features" aria-labelledby="features-heading">
+        <div class="container">
+          <div class="features__grid">
+            <div class="features__illustration reveal--left" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 445 400" class="illustration__svg" aria-hidden="true">
+                <g fill="none" fill-rule="evenodd">
+                  <rect x="40" y="30" width="365" height="240" rx="12" fill="#1E3A5F"/>
+                  <rect x="52" y="42" width="341" height="216" rx="6" fill="#F0F4F8"/>
+                  <rect x="66" y="56" width="100" height="8" rx="4" fill="#FF525D" opacity="0.8"/>
+                  <rect x="66" y="72" width="200" height="5" rx="2.5" fill="#C8D0D8"/>
+                  <rect x="66" y="83" width="180" height="5" rx="2.5" fill="#C8D0D8"/>
+                  <rect x="66" y="112" width="313" height="120" rx="6" fill="#243B55"/>
+                  <rect x="78" y="124" width="40" height="6" rx="3" fill="#FF525D" opacity="0.7"/>
+                  <rect x="124" y="124" width="80" height="6" rx="3" fill="#4CAF50" opacity="0.7"/>
+                  <rect x="78" y="136" width="60" height="6" rx="3" fill="#FF9800" opacity="0.7"/>
+                  <rect x="144" y="136" width="100" height="6" rx="3" fill="#64B5F6" opacity="0.7"/>
+                  <rect x="78" y="148" width="50" height="6" rx="3" fill="#FF525D" opacity="0.5"/>
+                  <rect x="78" y="160" width="40" height="6" rx="3" fill="#4CAF50" opacity="0.7"/>
+                  <rect x="78" y="172" width="80" height="6" rx="3" fill="#FF9800" opacity="0.5"/>
+                  <rect x="78" y="184" width="70" height="6" rx="3" fill="#FF525D" opacity="0.7"/>
+                  <rect x="66" y="244" width="80" height="8" rx="4" fill="#C8D0D8"/>
+                  <rect x="10" y="270" width="425" height="18" rx="4" fill="#152A40"/>
+                  <rect x="170" y="270" width="105" height="10" rx="2" fill="#0D1F30"/>
+                </g>
+              </svg>
+            </div>
+
+            <div class="features__text stagger">
+              <article class="feature-card">
+                <h3 class="feature-card__title">Free, open, simple</h3>
+                <p class="feature-card__text">
+                  Blogr is a free and open source application backed by a large community of
+                  helpful developers. It supports features such as code syntax highlighting,
+                  RSS feeds, social media integration, third-party commenting tools, and works
+                  seamlessly with Google Analytics.
+                </p>
+              </article>
+              <article class="feature-card">
+                <h3 class="feature-card__title">Powerful tooling</h3>
+                <p class="feature-card__text">
+                  Batteries included. We built a simple and straightforward CLI tool that makes
+                  customization and deployment a breeze, but capable of producing even the most
+                  complicated sites.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer" role="contentinfo">
+      <div class="container footer__grid">
+        <div class="footer__brand reveal">
+          <a href="index.html" class="footer__logo" aria-label="Blogr home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="101" height="32" aria-hidden="true">
+              <g fill="#FFF" fill-rule="evenodd">
+                <path d="M6.856 32c-3.789 0-6.27-2.086-6.27-6.264V6.242C.586 2.086 3.067 0 6.856 0c3.789 0 6.27 2.086 6.27 6.242V10H8.49V5.825C8.49 4.453 7.88 3.81 6.856 3.81c-1.025 0-1.635.643-1.635 2.015v20.35c0 1.372.61 2.015 1.635 2.015 1.025 0 1.635-.643 1.635-2.015V19.53h4.635v4.206C13.126 27.914 10.645 32 6.856 32zM15.96.321h4.635v31.358H15.96zM31.373 32c-3.79 0-6.27-2.086-6.27-6.264V6.242C25.103 2.086 27.583 0 31.373 0c3.789 0 6.27 2.086 6.27 6.242v19.494C37.643 29.914 35.162 32 31.373 32zm-1.636-26.175v20.35c0 1.372.611 2.015 1.636 2.015 1.024 0 1.635-.643 1.635-2.015V5.825c0-1.372-.611-2.015-1.635-2.015-1.025 0-1.636.643-1.636 2.015zM51.522 32c-3.79 0-6.27-2.086-6.27-6.264V.32h4.634v25.855c0 1.372.61 2.015 1.636 2.015 1.024 0 1.635-.643 1.635-2.015V.321h4.635v25.415C57.792 29.914 55.311 32 51.522 32zM68.73 32c-3.79 0-6.27-2.086-6.27-6.264V6.242C62.46 2.086 64.94 0 68.73 0c3.788 0 6.27 2.086 6.27 6.242V13H70.364V5.825c0-1.372-.61-2.015-1.635-2.015-1.025 0-1.636.643-1.636 2.015v20.35c0 1.372.611 2.015 1.636 2.015 1.025 0 1.635-.643 1.635-2.015V19h-1.871v-3.81H75v10.546C75 29.914 72.518 32 68.73 32zM89.382 32L86.735 19.4H84.96V32H80.324V.321h6.27c3.79 0 6.27 2.086 6.27 6.242v6.574c0 2.786-1.025 4.8-2.904 5.871L92.898 32h-3.516zm-4.422-28.19V15.59h1.636c1.025 0 1.635-.643 1.635-2.015V5.825c0-1.372-.61-2.015-1.635-2.015H84.96zM100.676 32H96.04V.321h4.635z"/>
+              </g>
+            </svg>
+          </a>
+        </div>
+
+        <nav class="footer__nav reveal" aria-label="Product links" style="transition-delay:80ms">
+          <h4 class="footer__heading">Product</h4>
+          <ul class="footer__list" role="list">
+            <li><a href="#" class="footer__link">Overview</a></li>
+            <li><a href="#" class="footer__link">Pricing</a></li>
+            <li><a href="#" class="footer__link">Marketplace</a></li>
+            <li><a href="#" class="footer__link">Features</a></li>
+            <li><a href="#" class="footer__link">Integrations</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer__nav reveal" aria-label="Company links" style="transition-delay:160ms">
+          <h4 class="footer__heading">Company</h4>
+          <ul class="footer__list" role="list">
+            <li><a href="#" class="footer__link">About</a></li>
+            <li><a href="#" class="footer__link">Team</a></li>
+            <li><a href="#" class="footer__link">Blog</a></li>
+            <li><a href="#" class="footer__link">Careers</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer__nav reveal" aria-label="Connect links" style="transition-delay:240ms">
+          <h4 class="footer__heading">Connect</h4>
+          <ul class="footer__list" role="list">
+            <li><a href="#" class="footer__link">Contact</a></li>
+            <li><a href="#" class="footer__link">Newsletter</a></li>
+            <li><a href="#" class="footer__link">LinkedIn</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <!-- Scroll To Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top" title="Back to top">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+
+    <script>
+      "use strict";
+
+      const $ = (s, c = document) => c.querySelector(s);
+      const $$ = (s, c = document) => c.querySelectorAll(s);
+      const on = (el, e, fn, opts) => el && el.addEventListener(e, fn, opts);
+      const throttle = (fn, ms) => { let last = 0; return (...a) => { const now = Date.now(); if (now - last >= ms) { last = now; fn(...a); } }; };
+      const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+
+      /* Loader */
+      (function () {
+        const loader = $("#pageLoader");
+        const hide = () => setTimeout(() => { loader.classList.add("is-hidden"); setTimeout(() => loader.remove(), 450); }, 300);
+        document.readyState === "complete" ? hide() : on(window, "load", hide);
+      })();
+
+      /* Desktop Dropdowns */
+      (function () {
+        const items = $$(".nav__item--dropdown");
+        function closeAll() { items.forEach(i => { i.classList.remove("is-open"); $(".nav__dropdown-btn", i)?.setAttribute("aria-expanded", "false"); }); }
+        items.forEach(item => {
+          const btn = $(".nav__dropdown-btn", item);
+          const panel = $(".nav__dropdown", item);
+          on(btn, "click", e => { e.stopPropagation(); const open = item.classList.contains("is-open"); closeAll(); if (!open) { item.classList.add("is-open"); btn.setAttribute("aria-expanded", "true"); } });
+          on(panel, "keydown", e => {
+            const links = [...$$("a", panel)];
+            const idx = links.indexOf(document.activeElement);
+            if (e.key === "ArrowDown") { e.preventDefault(); links[(idx + 1) % links.length]?.focus(); }
+            if (e.key === "ArrowUp") { e.preventDefault(); links[(idx - 1 + links.length) % links.length]?.focus(); }
+            if (e.key === "Escape") { closeAll(); btn?.focus(); }
+          });
+          on(item, "focusout", e => { if (!item.contains(e.relatedTarget)) { item.classList.remove("is-open"); btn.setAttribute("aria-expanded", "false"); } });
+        });
+        on(document, "click", () => closeAll());
+        on(document, "keydown", e => { if (e.key === "Escape") closeAll(); });
+      })();
+
+      /* Mobile Menu */
+      (function () {
+        const hamburger = $(".nav__hamburger");
+        const menu = $("#mobile-menu");
+        const dropBtns = $$(".mobile-menu__dropdown-btn");
+        let isOpen = false;
+
+        function openMenu() { isOpen = true; hamburger.setAttribute("aria-expanded", "true"); menu.classList.add("is-open"); menu.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden"; }
+        function closeMenu() {
+          isOpen = false; hamburger.setAttribute("aria-expanded", "false"); menu.classList.remove("is-open"); menu.setAttribute("aria-hidden", "true"); document.body.style.overflow = "";
+          dropBtns.forEach(btn => { const p = $(`#${btn.getAttribute("aria-controls")}`); btn.setAttribute("aria-expanded", "false"); btn.closest(".mobile-menu__item")?.classList.remove("is-open"); p?.classList.remove("is-open"); p?.setAttribute("aria-hidden", "true"); });
+          hamburger.focus();
+        }
+
+        if (!hamburger || !menu) return;
+        on(hamburger, "click", () => isOpen ? closeMenu() : openMenu());
+
+        dropBtns.forEach(btn => {
+          on(btn, "click", () => {
+            const id = btn.getAttribute("aria-controls");
+            const panel = $(`#${id}`);
+            const item = btn.closest(".mobile-menu__item");
+            const expanded = btn.getAttribute("aria-expanded") === "true";
+            dropBtns.forEach(other => { if (other === btn) return; const op = $(`#${other.getAttribute("aria-controls")}`); other.setAttribute("aria-expanded", "false"); other.closest(".mobile-menu__item")?.classList.remove("is-open"); op?.classList.remove("is-open"); op?.setAttribute("aria-hidden", "true"); });
+            const next = !expanded;
+            btn.setAttribute("aria-expanded", String(next));
+            item?.classList.toggle("is-open", next);
+            panel?.classList.toggle("is-open", next);
+            panel?.setAttribute("aria-hidden", String(!next));
+          });
+        });
+
+        on(document, "keydown", e => { if (e.key === "Escape" && isOpen) closeMenu(); });
+        on(document, "click", e => { if (isOpen && !menu.contains(e.target) && !hamburger.contains(e.target)) closeMenu(); });
+        on(window, "resize", debounce(() => { if (window.innerWidth > 960 && isOpen) closeMenu(); }, 150));
+      })();
+
+      /* Scroll To Top */
+      (function () {
+        const btn = $("#scrollTop");
+        if (!btn) return;
+        on(window, "scroll", throttle(() => { btn.classList.toggle("is-visible", window.scrollY > 400); }, 100), { passive: true });
+        on(btn, "click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+      })();
+
+      /* Scroll Reveal */
+      (function () {
+        const sels = [".reveal", ".reveal--left", ".reveal--right", ".stagger"];
+        if (!("IntersectionObserver" in window)) { sels.forEach(s => $$(s).forEach(el => el.classList.add("is-visible"))); return; }
+        const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: "0px 0px -50px 0px" });
+        sels.forEach(s => $$(s).forEach(el => io.observe(el)));
+        $$(".stagger").forEach(g => { [...g.children].forEach((c, i) => { c.style.transitionDelay = `${i * 110}ms`; }); });
+      })();
+    </script>
+  </body>
+</html>
